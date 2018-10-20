@@ -1,0 +1,10 @@
+[wrap-file]
+directory = readline-6.3
+
+source_url = ftp://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz
+source_filename = readline.tar.gz
+source_hash = 56ba6071b9462f980c5a72ab0023893b65ba6debb4eeb475d7a563dc65cafd43
+
+patch_url = file:///tmp/asdf/p.tgz
+patch_filename = readline-patch.tar.gz
+patch_hash = 5901549d7a74a90df9a8a3a4ef06c502c7f32a2eea334c03374b8de70df22d53
