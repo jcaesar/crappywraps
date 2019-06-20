@@ -5,6 +5,6 @@ source_url = https://github.com/BLAKE2/BLAKE2/archive/20160619.tar.gz
 source_filename = blake2.tar.gz
 source_hash = 56ba6071b9462f980c5a72ab0023893b65ba6debb4eeb475d7a563dc65cafd43
 
-patch_url = https://github.com/jcaesar/crappywraps/archive/blake2-patch.tgz
+patch_url = https://github.com/jcaesar/crappywraps/releases/download/1/blake2-patch.tgz
 patch_filename = blake2-patch.tar.gz
 patch_hash = 405f57be45f0ac1cb58ae802c89049c8990563d1b0c68b5f25d93bcc29d7f696
