@@ -1,0 +1,10 @@
+[wrap-file]
+directory = librdkafka-1.0.1
+
+source_url = https://github.com/edenhill/librdkafka/archive/v1.0.1.tar.gz
+source_filename = rdkafka-1.0.1.tgz
+source_hash = b2a2defa77c0ef8c508739022a197886e0644bd7bf6179de1b68bdffb02b3550
+
+patch_url = https://github.com/jcaesar/crappywraps/archive/rdkafka-patch.tgz
+patch_filename = rdkafka-patch-dl.tgz
+patch_hash = 4b1d249c16e336941a376c068113a7f59e1056e3cc8d2bb09e5fbd7da07b6951
