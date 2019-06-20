@@ -86,11 +86,11 @@ regex = cc.compiles('
 ', name: 'have regex')
 
 #zlib = dependency('zlib', version : '>=1.2.8', fallback: ['zlib', 'zlib_dep'], required: )
-zlib = dependency('zlib', required: get_option('WITH_ZLIB'))
-zstd = dependency('libzstd', required: get_option('WITH_ZSTD'))
-lz4 = dependency('liblz4', required: get_option('ENABLE_LZ4_EXT'))
-sasl = dependency('libsasl2', required: get_option('WITH_SASL'))
-ssl = dependency('openssl', required: get_option('WITH_SSL'))
+zlib = dependency('zlib', required: get_option('WITH_ZLIB'), static: get_option('default_library') == 'static')
+zstd = dependency('libzstd', required: get_option('WITH_ZSTD'), static: get_option('default_library') == 'static')
+lz4 = dependency('liblz4', required: get_option('ENABLE_LZ4_EXT'), static: get_option('default_library') == 'static')
+sasl = dependency('libsasl2', required: get_option('WITH_SASL'), static: get_option('default_library') == 'static')
+ssl = dependency('openssl', required: get_option('WITH_SSL'), static: get_option('default_library') == 'static')
 dl = cc.find_library('dl', required : get_option('WITH_LIBDL'))
 threads = dependency('threads')
 
