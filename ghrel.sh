@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -euo pipefail
 cd "$(dirname "$0")"
 
 API=https://api.github.com/repos/jcaesar/crappywraps
@@ -19,8 +19,12 @@ function r {
 		--owner=0 --group=0 --numeric-owner \
 		--exclude=\*.wrap --exclude=patch.tgz \
 		-czf patch.tgz .
-	name="$(basename "$PWD")"
 	hash=$(sha256sum patch.tgz  | cut -d\  -f1)
+	curhash="$(sed -rn 's/^patch_hash = //p' *.wrap)"
+	if test "$hash" == "$curhash"; then
+		return
+	fi
+	name="$(basename "$PWD")"
 	remote="https://github.com/jcaesar/crappywraps/releases/download/$this/$name-patch.tgz"
 	sed -ri *.wrap \
 		-e "s#(patch_url = ).*\$#\1$remote#" \
@@ -29,13 +33,20 @@ function r {
 export -f r
 find * -maxdepth 0 -type d -exec bash -c r {} \;
 
-git commit -m "Modify paths for \"release\" $this" */*.wrap
+git add */*.wrap
+if test $(git diff --staged | wc -l) -ne 0; then
+	git commit -m "Modify paths for \"release\" $this"
+fi
 git push -f
 
 rel="$(http --ignore-stdin --auth jcaesar:$TOK POST $API/releases tag_name=$this target_commitish=$(git rev-parse HEAD) draft:=true name="Crappy Release $this" body="Nyonyonyonyo")"
 assets="$(jq -r '.upload_url' <<<"$rel" | sed 's/{?.*$//')"
 
 for f in */*.wrap; do
+	rel="$(sed -rn 's#^patch_url = .*/([^/]*)/[^/]*$#\1#p' "$f")"
+	if test "$rel" != "$this"; then
+		continue
+	fi
 	pack="$(basename "$(dirname "$f")")"
 	http --auth jcaesar:$TOK "$assets" name=="$pack-patch.tgz" Content-Type:application/gzip <"$pack/patch.tgz"
 done
