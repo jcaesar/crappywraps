@@ -1,5 +1,9 @@
-project('YetAnotherJSONParser', 'c', version: '2.1.1')
-yajl_dist_name = 'yajl-2.1.1'
+project('YetAnotherJSONParser', 'c', version: '2.1.0')
+version = configuration_data({
+	'yajl_major': 2,
+	'yajl_minor': 1,
+	'yajl_micro': 0,
+})
 api = [
 	'src/api/yajl_common.h',
 	'src/api/yajl_gen.h',
@@ -23,11 +27,6 @@ src = api + [
 	'src/yajl_tree.c',
 	'src/yajl_version.c',
 ]
-version = configuration_data({
-	'yajl_major': 2,
-	'yajl_minor': 1,
-	'yajl_micro': 1,
-})
 configure_file(configuration: version,
 	input: 'src/api/yajl_version.h.cmake',
 	output: 'yajl_version.h',
@@ -45,7 +44,7 @@ yajl_dep = declare_dependency(
 install_headers(api, subdir: 'yajl')
 import('pkgconfig').generate(libraries: yajl,
 	subdirs: 'yajl',
-	version : '2.1.1',
+	version : meson.project_version(),
 	name : 'Yet Another JSON Library',
 	filebase : 'yajl',
 	description : 'A Portable JSON parsing and serialization library in ANSI C'
