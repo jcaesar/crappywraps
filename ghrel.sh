@@ -13,18 +13,18 @@ export this
 function r {
 	set -euo pipefail
 	cd "$0"
+	name="$(basename "$PWD")"
 	tar \
 		--sort=name \
 		--mtime="@626637420" \
 		--owner=0 --group=0 --numeric-owner \
-		--exclude=\*.wrap --exclude=patch.tgz \
-		-czf patch.tgz .
+		--exclude="$name.wrap" --exclude=patch.tgz \
+		-cvzf patch.tgz .
 	hash=$(sha256sum patch.tgz  | cut -d\  -f1)
 	curhash="$(sed -rn 's/^patch_hash = //p' *.wrap)"
 	if test "$hash" == "$curhash"; then
 		return
 	fi
-	name="$(basename "$PWD")"
 	remote="https://github.com/jcaesar/crappywraps/releases/download/$this/$name-patch.tgz"
 	sed -ri *.wrap \
 		-e "s#(patch_url = ).*\$#\1$remote#" \
