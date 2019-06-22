@@ -1,4 +1,4 @@
-project('rdkafka', 'c', 'cpp', version: '1.0.1')
+project('rdkafka', 'c', 'cpp', version: '1.0.1', subproject_dir: 'meson')
 cc = meson.get_compiler('c')
 cpp = meson.get_compiler('cpp')
 pkgconfig = import('pkgconfig')
@@ -74,7 +74,7 @@ srccpp = [
 	'src-cpp/rdkafkacpp_int.h',
 ]
 
-regex = cc.compiles('
+regex = cc.compiles('''
 	#include <stddef.h>
 	#include <regex.h>
 	void foo (void) {
@@ -83,12 +83,11 @@ regex = cc.compiles('
 		regerror(0, NULL, NULL, 0);
 		regfree(NULL);
 	}
-', name: 'have regex')
+''', name: 'have regex')
 
-#zlib = dependency('zlib', version : '>=1.2.8', fallback: ['zlib', 'zlib_dep'], required: )
-zlib = dependency('zlib', required: get_option('WITH_ZLIB'), static: get_option('default_library') == 'static')
-zstd = dependency('libzstd', required: get_option('WITH_ZSTD'), static: get_option('default_library') == 'static')
-lz4 = dependency('liblz4', required: get_option('ENABLE_LZ4_EXT'), static: get_option('default_library') == 'static')
+zlib = dependency('zlib', required: get_option('WITH_ZLIB'), static: get_option('default_library') == 'static', fallback: ['zlib', 'zlib_dep'])
+zstd = dependency('libzstd', required: get_option('WITH_ZSTD'), static: get_option('default_library') == 'static', fallback: ['zstd', 'zstd_dep'])
+lz4 = dependency('liblz4', required: get_option('ENABLE_LZ4_EXT'), static: get_option('default_library') == 'static', fallback: ['lz4', 'lz4_dep'])
 sasl = dependency('libsasl2', required: get_option('WITH_SASL'), static: get_option('default_library') == 'static')
 ssl = dependency('openssl', required: get_option('WITH_SSL'), static: get_option('default_library') == 'static')
 dl = cc.find_library('dl', required : get_option('WITH_LIBDL'))
