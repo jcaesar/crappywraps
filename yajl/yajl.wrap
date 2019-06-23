@@ -5,6 +5,6 @@ source_url = https://github.com/lloyd/yajl/archive/2.1.0.tar.gz
 source_filename = yajl-2.1.0.tgz
 source_hash = 3fb73364a5a30efe615046d07e6db9d09fd2b41c763c5f7d3bfb121cd5c5ac5a
 
-patch_url = https://github.com/jcaesar/crappywraps/releases/download/6/yajl-patch.tgz
+patch_url = https://github.com/jcaesar/crappywraps/releases/download/7/yajl-patch.tgz
 patch_filename = yajl-patch-dl.tgz
-patch_hash = 38c509873b5fece5e7c19ea78f85892f49bac55b3bf4f806c47f24a332da138e
+patch_hash = 643c722d0ab2d84f64a9b05b41e1a12453df8bcba6b62daa42b09881d68add01
