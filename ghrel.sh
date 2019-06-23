@@ -19,14 +19,14 @@ function r {
 		--owner=0 --group=0 --numeric-owner \
 		--exclude=\*.wrap --exclude=patch.tgz \
 		-czf patch.tgz .
+	name="$(basename "$PWD")"
 	hash=$(sha256sum patch.tgz  | cut -d\  -f1)
-	curhash="$(sed -rn 's/^patch_hash = //p' *.wrap)"
+	curhash="$(sed -rn 's/^patch_hash = //p' "$name.wrap")"
 	if test "$hash" == "$curhash"; then
 		return
 	fi
-	name="$(basename "$PWD")"
 	remote="https://github.com/jcaesar/crappywraps/releases/download/$this/$name-patch.tgz"
-	sed -ri *.wrap \
+	sed -ri "$name.wrap" \
 		-e "s#(patch_url = ).*\$#\1$remote#" \
 		-e "s#(patch_hash = ).*\$#\1$hash#"
 }
