@@ -10,7 +10,7 @@ api = files(
 	'src/api/yajl_parse.h',
 	'src/api/yajl_tree.h',
 )
-subdir('yajl')
+subdir('meson-include/yajl')
 src = api + files(
 	'src/yajl.c',
 	'src/yajl_alloc.c',
