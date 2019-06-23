@@ -7,3 +7,11 @@ foreach h: api
 		output: '@PLAINNAME@',
 	)
 endforeach
+
+configure_file(configuration: version,
+	input: versionh,
+	output: 'yajl_version.h',
+	format: 'cmake',
+	install: true,
+	install_dir: 'include/yajl',
+)

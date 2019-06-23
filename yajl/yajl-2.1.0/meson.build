@@ -1,8 +1,8 @@
 project('YetAnotherJSONParser', 'c', version: '2.1.0')
 version = configuration_data({
-	'yajl_major': 2,
-	'yajl_minor': 1,
-	'yajl_micro': 0,
+	'YAJL_MAJOR': 2,
+	'YAJL_MINOR': 1,
+	'YAJL_MICRO': 0,
 })
 api = files(
 	'src/api/yajl_common.h',
@@ -10,6 +10,7 @@ api = files(
 	'src/api/yajl_parse.h',
 	'src/api/yajl_tree.h',
 )
+versionh = files('src/api/yajl_version.h.cmake')
 subdir('meson-include/yajl')
 src = api + files(
 	'src/yajl.c',
@@ -28,14 +29,9 @@ src = api + files(
 	'src/yajl_tree.c',
 	'src/yajl_version.c',
 )
-configure_file(configuration: version,
-	input: 'src/api/yajl_version.h.cmake',
-	output: 'yajl_version.h',
-	install: true,
-	install_dir: 'include/yajl',
-)
 yajl = library('yajl', src,
-	install: true
+	include_directories: include_directories('meson-include'),
+	install: true,
 )
 yajl_dep = declare_dependency(
 	link_with: yajl,
