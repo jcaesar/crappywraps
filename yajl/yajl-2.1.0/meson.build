@@ -4,13 +4,14 @@ version = configuration_data({
 	'yajl_minor': 1,
 	'yajl_micro': 0,
 })
-api = [
+api = files(
 	'src/api/yajl_common.h',
 	'src/api/yajl_gen.h',
 	'src/api/yajl_parse.h',
 	'src/api/yajl_tree.h',
-]
-src = api + [
+)
+subdir('yajl')
+src = api + files(
 	'src/yajl.c',
 	'src/yajl_alloc.c',
 	'src/yajl_alloc.h',
@@ -26,7 +27,7 @@ src = api + [
 	'src/yajl_parser.h',
 	'src/yajl_tree.c',
 	'src/yajl_version.c',
-]
+)
 configure_file(configuration: version,
 	input: 'src/api/yajl_version.h.cmake',
 	output: 'yajl_version.h',
@@ -34,7 +35,7 @@ configure_file(configuration: version,
 	install_dir: 'include/yajl',
 )
 yajl = library('yajl', src,
-	include_directories: 'src/api',
+	include_directories: '.',
 	install: true
 )
 yajl_dep = declare_dependency(
