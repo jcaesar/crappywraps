@@ -40,7 +40,7 @@ yajl = library('yajl', src,
 )
 yajl_dep = declare_dependency(
 	link_with: yajl,
-	include_directories: include_directories('src/api'),
+	include_directories: include_directories('meson-include'),
 )
 import('pkgconfig').generate(libraries: yajl,
 	subdirs: 'yajl',
