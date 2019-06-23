@@ -43,6 +43,9 @@ rel="$(http --ignore-stdin --auth jcaesar:$TOK POST $API/releases tag_name=$this
 assets="$(jq -r '.upload_url' <<<"$rel" | sed 's/{?.*$//')"
 
 for f in */*.wrap; do
+	if test "$(basename "$(dirname "$f")")" != "$(basename "$f" .wrap)"; then
+		continue
+	fi
 	rel="$(sed -rn 's#^patch_url = .*/([^/]*)/[^/]*$#\1#p' "$f")"
 	if test "$rel" != "$this"; then
 		continue
