@@ -41,7 +41,6 @@ yajl_dep = declare_dependency(
 	link_with: yajl,
 	include_directories: include_directories('src/api'),
 )
-install_headers(api, subdir: 'yajl')
 import('pkgconfig').generate(libraries: yajl,
 	subdirs: 'yajl',
 	version : meson.project_version(),
