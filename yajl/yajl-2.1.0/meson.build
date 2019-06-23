@@ -35,7 +35,6 @@ configure_file(configuration: version,
 	install_dir: 'include/yajl',
 )
 yajl = library('yajl', src,
-	include_directories: '.',
 	install: true
 )
 yajl_dep = declare_dependency(
