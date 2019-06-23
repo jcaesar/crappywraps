@@ -5,6 +5,6 @@ source_url = https://github.com/edenhill/librdkafka/archive/v1.0.1.tar.gz
 source_filename = rdkafka-1.0.1.tgz
 source_hash = b2a2defa77c0ef8c508739022a197886e0644bd7bf6179de1b68bdffb02b3550
 
-patch_url = https://github.com/jcaesar/crappywraps/releases/download/5/rdkafka-patch.tgz
+patch_url = https://github.com/jcaesar/crappywraps/releases/download/6/rdkafka-patch.tgz
 patch_filename = rdkafka-patch-dl.tgz
-patch_hash = fbea91b21321c9965072a7b566e593e6f5ef4eeb2b8b8fd3ce7f211d274dd4c6
+patch_hash = 3ab4131fe58c346f380d6689240d958f609a4d44cb63f4530426bd433aa748ca

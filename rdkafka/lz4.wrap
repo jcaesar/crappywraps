@@ -1,1 +1,10 @@
-../lz4/lz4.wrap
+[wrap-file]
+directory = lz4-1.8.3
+
+source_url = https://github.com/lz4/lz4/archive/v1.8.3.tar.gz
+source_filename = lz4-1.8.3.tgz
+source_hash = 33af5936ac06536805f9745e0b6d61da606a1f8b4cc5c04dd3cbaca3b9b4fc43 
+
+patch_url = https://github.com/jcaesar/crappywraps/releases/download/6/rdkafka-patch.tgz
+patch_filename = lz4-patch-dl.tgz
+patch_hash = 3ab4131fe58c346f380d6689240d958f609a4d44cb63f4530426bd433aa748ca
