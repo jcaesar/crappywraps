@@ -2,15 +2,22 @@ project('readline', 'c', version: '6.3')
 
 std = declare_dependency(compile_args: '-std=gnu11')
 
-hist = ['history.c', 'histexpand.c', 'histfile.c', 'histsearch.c', 'shell.c', 'mbutil.c']
-tilde = ['tilde.c']
-colors = ['colors.c', 'parse-colors.c']
-all = hist + tilde + colors + [
+hist = files('history.c', 'histexpand.c', 'histfile.c', 'histsearch.c', 'shell.c', 'mbutil.c')
+tilde = files('tilde.c')
+colors = files('colors.c', 'parse-colors.c')
+headers = files(
+	'ansi_stdlib.h', 'chardefs.h', 'colors.h', 'histlib.h', 'history.h',
+	'keymaps.h', 'parse-colors.h', 'posixdir.h', 'posixjmp.h',
+	'posixselect.h', 'posixstat.h', 'readline.h', 'rlconf.h', 'rldefs.h',
+	'rlmbutil.h', 'rlprivate.h', 'rlshell.h', 'rlstdc.h', 'rltty.h',
+	'rltypedefs.h', 'rlwinsize.h', 'tcap.h', 'tilde.h'
+)
+all = hist + tilde + colors + headers + files(
 	'readline.c', 'vi_mode.c', 'funmap.c', 'keymaps.c', 'parens.c', 'search.c',
 	'rltty.c', 'complete.c', 'bind.c', 'isearch.c', 'display.c', 'signals.c',
 	'util.c', 'kill.c', 'undo.c', 'macro.c', 'input.c', 'callback.c', 'terminal.c',
 	'text.c', 'nls.c', 'misc.c', 'xmalloc.c', 'xfree.c', 'compat.c',
-]
+)
 
 c = meson.get_compiler('c')
 config = configuration_data()
@@ -136,6 +143,8 @@ endif
 
 configure_file(configuration: config, output: 'config.h') # sadly incomplete! TODO.
 
+subdir('readline')
+
 readline = static_library('readline', 
 	sources: all,
 	c_args: [ '-DHAVE_CONFIG_H', '-Werror=implicit-function-declaration' ],
@@ -143,6 +152,6 @@ readline = static_library('readline',
 
 readline_dep = declare_dependency(
 	link_with: readline,
-	include_directories: include_directories('.'),
-	dependencies: tgetentdep,
+	include_directories: [include_directories('.'), include_directories('./readline/')], # So the standard pkg-config says that you should -I/usr/include/readline, which would make inc_dir('readline') correct, but the project I need this for incorrectly includes them with #include<readline/foo.h>, needing inc_dir('.'). Bleh.
+	dependencies: tgetentdep
 )
