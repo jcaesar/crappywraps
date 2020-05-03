@@ -1,4 +1,4 @@
-project('rdkafka', 'c', 'cpp', version: '1.0.1', subproject_dir: 'meson')
+project('rdkafka', 'c', 'cpp', version: '1.4.0', subproject_dir: 'meson')
 cc = meson.get_compiler('c')
 cpp = meson.get_compiler('cpp')
 pkgconfig = import('pkgconfig')
@@ -14,6 +14,7 @@ srcc = [
     'src/rdavl.c',
     'src/rdbuf.c',
     'src/rdcrc32.c',
+    'src/rdfnv1a.c',
     'src/rdkafka.c',
     'src/rdkafka_assignor.c',
     'src/rdkafka_broker.c',
@@ -48,6 +49,13 @@ srcc = [
     'src/rdkafka_aux.c',
     'src/rdkafka_background.c',
     'src/rdkafka_idempotence.c',
+    'src/rdkafka_txnmgr.c',
+    'src/rdkafka_cert.c',
+    'src/rdkafka_coord.c',
+    'src/rdkafka_mock.c',
+    'src/rdkafka_mock_handlers.c',
+    'src/rdkafka_mock_cgrp.c',
+    'src/rdkafka_error.c',
     'src/rdlist.c',
     'src/rdlog.c',
     'src/rdmurmur2.c',
@@ -60,7 +68,7 @@ srcc = [
     'src/snappy.c',
     'src/tinycthread.c',
     'src/tinycthread_extra.c',
-    'src/xxhash.c',
+    'src/rdxxhash.c',
 ]
 srccpp = [
 	'src-cpp/ConfImpl.cpp',
